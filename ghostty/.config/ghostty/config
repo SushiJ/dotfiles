@@ -1,0 +1,5 @@
+cursor-style = block
+gtk-titlebar = false
+theme = tokyonight
+font-size = 14
+shell-integration-features = no-cursor

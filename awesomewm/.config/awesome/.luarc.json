@@ -1,0 +1,12 @@
+{
+    "diagnostics.globals": [
+        "theme",
+        "awesome",
+        "client",
+        "screen",
+        "root",
+        "globalkeys",
+        "clientkeys",
+        "clientbuttons"
+    ]
+}
