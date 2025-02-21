@@ -18,8 +18,8 @@
     pkgs.fish
     pkgs.obsidian
   ];
-  # Let Home Manager install and manage itself.
+
   programs.home-manager.enable = true;
 
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.stateVersion = "24.11";
 }
