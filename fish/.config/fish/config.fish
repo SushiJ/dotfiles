@@ -10,10 +10,16 @@ set -q MANPATH; or set MANPATH ''
 set -gx MANPATH "/home/linuxbrew/.linuxbrew/share/man" $MANPATH
 set -q INFOPATH; or set INFOPATH ''
 set -gx INFOPATH "/home/linuxbrew/.linuxbrew/share/info" $INFOPATH
+set -gx EDITOR "nvim"
 
 alias pbcopy="xclip -selection clipboard"
 alias pbpaste="xclip -selection clipboard -o"
 alias dev="cd ~/nix-home/sushi/dev/"
+alias p="pnpm"
+alias dots="cd ~/.dotfiles"
+alias emacs="doom run"
+alias z="zypper"
+alias sz="sudo zypper"
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
