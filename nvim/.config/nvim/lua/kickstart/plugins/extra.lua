@@ -81,4 +81,27 @@ return {
     end,
   },
   { 'tpope/vim-fugitive' },
+  { 'akinsho/toggleterm.nvim', version = '*', config = true },
+  {
+    'smjonas/inc-rename.nvim',
+    config = function()
+      require('inc_rename').setup {
+        input_buffer_type = 'dressing',
+      }
+    end,
+  },
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = 'kevinhwang91/promise-async',
+  },
+  {
+    'lervag/vimtex',
+    lazy = false, -- we don't want to lazy load VimTeX
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      -- VimTeX configuration goes here, e.g.
+      vim.g.vimtex_view_method = 'zathura'
+      vim.g.vimtex_compiler_method = 'tectonic'
+    end,
+  },
 }

@@ -4,6 +4,18 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
+map('n', 'zR', function()
+  require('ufo').openAllFolds()
+end, { desc = 'open all folds' })
+
+map('n', 'zM', function()
+  require('ufo').closeAllFolds()
+end, { desc = 'close all folds' })
+
+map('n', '<leader>cr', function()
+  return ':IncRename ' .. vim.fn.expand '<cword>'
+end, { desc = '[C]ode [R]ename', expr = true })
+
 map('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Unhighlight search' })
 map('n', '<leader>e', function()
   require('oil').toggle_float()
@@ -15,7 +27,7 @@ map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]ui
 -- or just use <C-\><C-n> to exit terminal mode
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 map('n', '<leader>tf', '<cmd>ToggleTerm direction=float<cr>', { desc = 'Toggle Term float' })
-map('n', '<leader>tt', '<cmd>ToggleTerm<cr>', { desc = 'Toggle Term' })
+map('n', '<leader>tt', '<cmd>ToggleTerm direction=horizontal<cr>', { desc = 'Toggle Term' })
 
 map('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 map('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
