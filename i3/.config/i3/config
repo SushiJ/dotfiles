@@ -17,6 +17,8 @@ set $refresh_i3status killall -SIGUSR1 i3status
 bindsym F2 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym F3 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym F4 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym F5 exec --no-startup-id pactl set-default-sink alsa_output.pci-0000_28_00.4.analog-stereo
+bindsym F6 exec --no-startup-id pactl set-default-sink alsa_output.pci-0000_26_00.1.hdmi-stereo
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use Mouse+$mod to drag floating windows to their wanted position
