@@ -15,10 +15,12 @@
   };
 
   home.packages = [
-    # pkgs.fish
-    # pkgs.obsidian
-    # pkgs.ruff
+    pkgs.ruff
     # pkgs.babashka
+
+    pkgs.cmake
+    pkgs.clang_16
+    pkgs.ninja
   ];
 
   programs.home-manager.enable = true;
