@@ -5,14 +5,12 @@ font pango:monospace 8
 exec --no-startup-id feh --bg-fill '/home/sushi/Downloads/wall.png'
 exec --no-startup-id dex --autostart --environment i3
 
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
 exec --no-startup-id blueman-applet
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
-exec --no-startup-id /usr/libexec/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/sbin/lxqt-policykit-agent
 
-# Use pactl to adjust volume in PulseAudio.
+# Use pactl to adjust volume in Pipewire.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym F2 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym F3 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
