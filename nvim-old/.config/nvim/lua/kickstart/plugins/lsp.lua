@@ -141,7 +141,7 @@ return {
           plugins = {
             {
               name = '@vue/typescript-plugin',
-              location = '/home/sushi/.asdf/installs/nodejs/20.18.0/lib/node_modules/@vue/typescript-plugin',
+              location = '/home/sushi/.asdf/installs/nodejs/22.16.0/lib/node_modules/@vue/typescript-plugin',
               languages = { 'javascript', 'typescript', 'vue' },
             },
           },
