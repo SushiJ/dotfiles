@@ -13,12 +13,12 @@ exec --no-startup-id /usr/sbin/lxqt-policykit-agent
 
 # Use pactl to adjust volume in Pipewire.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym F2 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym F3 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym F4 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym F2 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym F3 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym F4 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym F5 exec --no-startup-id pactl set-default-sink alsa_output.pci-0000_28_00.4.analog-stereo
 bindsym F6 exec --no-startup-id pactl set-default-sink alsa_output.pci-0000_26_00.1.hdmi-stereo
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -79,7 +79,7 @@ set $ws2 "2: "
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5: "
-set $ws6 "6"
+set $ws6 "6: "
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
@@ -151,13 +151,13 @@ client.urgent           $u-bgcolor      $u-bgcolor      $text           $u-bgcol
 
 bar {
         status_command i3status
-        colors {
-                background $bgcolor
-                separator #191919
-                #                       border          background      text
-                focused_workspace       $focused-ws     $focused-ws      $text
-                inactive_workspace      $in-bgcolor     $in-bgcolor     $text
-                urgent_workspace        $u-bgcolor      $u-bgcolor      $text   
-
-        }
+        # colors {
+        #         background $bgcolor
+        #         separator #191919
+        #         #                       border          background      text
+        #         focused_workspace       $focused-ws     $focused-ws      $text
+        #         inactive_workspace      $in-bgcolor     $in-bgcolor     $text
+        #         urgent_workspace        $u-bgcolor      $u-bgcolor      $text   
+        #
+        # }
 }
