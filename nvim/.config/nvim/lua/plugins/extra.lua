@@ -66,7 +66,7 @@ return {
   {
     'kristijanhusak/vim-dadbod-ui',
     dependencies = {
-      { 'tpope/vim-dadbod',                     lazy = true },
+      { 'tpope/vim-dadbod', lazy = true },
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
     },
     cmd = {
@@ -103,5 +103,8 @@ return {
       vim.g.vimtex_view_method = 'zathura'
       vim.g.vimtex_compiler_method = 'tectonic'
     end,
+  },
+  {
+    'mfussenegger/nvim-jdtls',
   },
 }

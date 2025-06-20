@@ -1,5 +1,3 @@
--- This file is automatically loaded by plugins.init
-
 local function augroup(name)
   return vim.api.nvim_create_augroup('sushi_' .. name, { clear = true })
 end
@@ -35,15 +33,6 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     if mark[1] > 0 and mark[1] <= lcount then
       pcall(vim.api.nvim_win_set_cursor, 0, mark)
     end
-  end,
-})
-
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  group = augroup 'ReasonML',
-  pattern = '*.re,*.rei',
-  desc = 'Detect and set the proper file type for ReasonML files',
-  callback = function()
-    vim.cmd 'set filetype=reason'
   end,
 })
 
@@ -108,21 +97,14 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.colorcolumn = ''
   end,
 })
-vim.api.nvim_create_autocmd('FileType', {
-  group = augroup 'oil',
-  pattern = 'oil',
-  callback = function()
-    vim.opt_local.colorcolumn = ''
-  end,
-})
 
-vim.api.nvim_create_autocmd('FileType', {
-  group = augroup 'nvim-metals',
-  pattern = { 'scala', 'sbt', 'java' },
-  callback = function()
-    require('metals').initialize_or_attach {}
-  end,
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+--   group = augroup 'nvim-metals',
+--   pattern = { 'scala', 'sbt', 'java' },
+--   callback = function()
+--     require('metals').initialize_or_attach {}
+--   end,
+-- })
 
 vim.api.nvim_create_user_command('ToggleDiagnostics', function()
   if vim.g.diagnostics_enabled == nil then
@@ -136,3 +118,86 @@ vim.api.nvim_create_user_command('ToggleDiagnostics', function()
     vim.diagnostic.enable()
   end
 end, {})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
+  callback = function(event)
+    local map = function(keys, func, desc, mode)
+      mode = mode or 'n'
+      vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+    end
+
+    local function diagnostic_goto(next, severity)
+      local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+      severity = severity and vim.diagnostic.severity[severity] or nil
+      return function()
+        go { severity = severity }
+      end
+    end
+
+    map('K', vim.lsp.buf.hover, 'Hover Documentation')
+    map('gs', vim.lsp.buf.signature_help, 'Signature Documentation')
+    map('<C-k>', vim.lsp.buf.signature_help, 'Signature Help', 'i')
+    map('gd', function()
+      Snacks.picker.lsp_definitions()
+    end, 'Goto Definition')
+    map('gD', vim.lsp.buf.declaration, 'Goto Declaration')
+
+    map('<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<cr>', 'Goto Definition in Vertical Split')
+
+    map(']d', diagnostic_goto(true), 'Next Diagnostic')
+    map('[d', diagnostic_goto(false), 'Prev Diagnostic')
+    map(']e', diagnostic_goto(true, 'ERROR'), 'Next Error')
+    map('[e', diagnostic_goto(false, 'ERROR'), 'Prev Error')
+    map(']w', diagnostic_goto(true, 'WARN'), 'Next Warning')
+    map('[w', diagnostic_goto(false, 'WARN'), 'Prev Warning')
+
+    local wk = require 'which-key'
+    wk.add {
+      { '<leader>ca', vim.lsp.buf.code_action, desc = '[C]ode [A]ction' },
+      { '<leader>cA', vim.lsp.buf.range_code_action, desc = 'Range Code Actions' },
+      { '<leader>cs', vim.lsp.buf.signature_help, desc = 'Display Signature Information' },
+      { '<leader>cd', vim.diagnostic.open_float, desc = '[C]ode [D]iagnostics' },
+      { '<leader>rn', vim.lsp.buf.rename, desc = 'Rename all references' },
+      { '<leader>lf', vim.lsp.buf.format, desc = 'Format' },
+    }
+
+    local function client_supports_method(client, method, bufnr)
+      if vim.fn.has 'nvim-0.11' == 1 then
+        return client:supports_method(method, bufnr)
+      else
+        return client.supports_method(method, { bufnr = bufnr })
+      end
+    end
+
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+      local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
+      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+        buffer = event.buf,
+        group = highlight_augroup,
+        callback = vim.lsp.buf.document_highlight,
+      })
+
+      vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+        buffer = event.buf,
+        group = highlight_augroup,
+        callback = vim.lsp.buf.clear_references,
+      })
+
+      vim.api.nvim_create_autocmd('LspDetach', {
+        group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
+        callback = function(event2)
+          vim.lsp.buf.clear_references()
+          vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event2.buf }
+        end,
+      })
+    end
+
+    if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+      map('<leader>th', function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+      end, '[T]oggle Inlay [H]ints')
+    end
+  end,
+})
