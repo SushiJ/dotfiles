@@ -16,10 +16,10 @@
 
   home.packages = [
     pkgs.ruff
-    # pkgs.babashka
+    pkgs.uv
+    pkgs.babashka
 
     pkgs.cmake
-    pkgs.clang_16
     pkgs.ninja
   ];
 
