@@ -55,7 +55,7 @@ theme.notification_height = 35
 -- theme.notification\_max\_height = nil
 -- theme.notification\_icon\_size = nil
 
--- theme.wallpaper = "/home/sushi/Downloads/wallpaps/current.png"
+theme.wallpaper = "/home/sushi/Downloads/walls/wall/wallpapers/b-219.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_tilebottom = themes_path .. "default/layouts/tilebottomw.png"
