@@ -1,39 +1,10 @@
+---@diagnostic disable: need-check-nil
 vim.lsp.enable {
   'lua_ls',
   'ts_ls',
   'pyright',
-  'clojure_lsp'
-  -- 'vue_ls',
+  'clojure_lsp',
 }
-
--- vim.lsp.config('ts_ls', {
---   init_options = {
---     plugins = {
---       {
---         name = '@vue/typescript-plugin',
---         location = '/home/sushi/.asdf/installs/nodejs/22.16.0/lib/node_modules/@vue/typescript-plugin',
---         languages = { 'javascript', 'typescript', 'vue' },
---       },
---     },
---   },
---   filetypes = {
---     'javascript',
---     'typescript',
---     'vue',
---   },
--- })
---
--- vim.lsp.config('vue_ls', {
---   cmd = { 'vue-language-server', '--stdio' },
---   filetypes = { 'vue' },
---   root_markers = { 'package.json' },
---   -- https://github.com/vuejs/language-tools/blob/v2/packages/language-server/lib/types.ts
---   init_options = {
---     typescript = {
---       tsdk = '/home/sushi/.local/share/pnpm/tsc',
---     },
---   },
--- })
 
 vim.diagnostic.config {
   virtual_text = true,
@@ -235,7 +206,7 @@ local function lsp_info()
     print('  Filetypes: ' .. table.concat(client.config.filetypes or {}, ', '))
 
     -- Server status
-    if client.is_stopped() then
+    if client.is_stopped then
       print '  Status: 󰅚 Stopped'
     else
       print '  Status: 󰄬 Running'
