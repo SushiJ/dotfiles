@@ -13,7 +13,13 @@ return {
     priority = 1000,
     opts = {},
     config = function()
-      vim.cmd [[colorscheme tokyonight-night]]
+      -- vim.cmd [[colorscheme tokyonight-night]]
+    end,
+  },
+  {
+    'vague2k/vague.nvim',
+    config = function()
+      vim.cmd [[colorscheme vague]]
     end,
   },
 }
