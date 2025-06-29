@@ -4,13 +4,13 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-map('n', 'zR', function()
-  require('ufo').openAllFolds()
-end, { desc = 'open all folds' })
-
-map('n', 'zM', function()
-  require('ufo').closeAllFolds()
-end, { desc = 'close all folds' })
+-- map('n', 'zR', function()
+--   require('ufo').openAllFolds()
+-- end, { desc = 'open all folds' })
+--
+-- map('n', 'zM', function()
+--   require('ufo').closeAllFolds()
+-- end, { desc = 'close all folds' })
 
 map('n', '<leader>cr', function()
   return ':IncRename ' .. vim.fn.expand '<cword>'
@@ -117,6 +117,13 @@ map('c', 'WQ', 'wq', {})
 map('c', 'Wq', 'wq', {})
 map('c', 'W', 'w', {})
 map('c', 'Q', 'q', {})
+
+-- map("n", "d", '"_d', { noremap = true })
+-- map("n", "D", '"_D', { noremap = true })
+-- map("n", "x", '"_x', { noremap = true })
+-- map("v", "d", '"_d', { noremap = true })
+-- map("v", "x", '"_x', { noremap = true })
+
 
 -- plugin development
 map('n', '<leader>sf', '<cmd>source %<cr>', { desc = 'Source current file' })
