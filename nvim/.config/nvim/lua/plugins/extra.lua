@@ -95,7 +95,7 @@ return {
     dependencies = 'kevinhwang91/promise-async',
     config = function()
       require('ufo').setup {
-        provider_selector = function(bufnr, filetype, buftype)
+        provider_selector = function(_bufnr, _filetype, _buftype)
           return { 'treesitter', 'indent' }
         end,
       }
@@ -111,7 +111,4 @@ return {
       vim.g.vimtex_compiler_method = 'tectonic'
     end,
   },
-  -- {
-  --   'mfussenegger/nvim-jdtls',
-  -- },
 }

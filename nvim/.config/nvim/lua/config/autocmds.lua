@@ -45,14 +45,6 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
-  group = augroup 'tex',
-  pattern = '*.tex',
-  callback = function()
-    vim.opt_local.filetype = 'tex'
-  end,
-})
-
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
   group = augroup 'c_lang',
   pattern = {
     '*.c',
@@ -63,6 +55,14 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
     vim.opt.tabstop = 4
     vim.opt.shiftwidth = 4
     vim.opt.softtabstop = 4
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
+  group = augroup 'tex',
+  pattern = '*.tex',
+  callback = function()
+    vim.opt_local.filetype = 'tex'
   end,
 })
 
@@ -108,7 +108,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- vim.api.nvim_create_autocmd('FileType', {
 --   group = augroup 'nvim-metals',
---   pattern = { 'scala', 'sbt', 'java' },
+--   pattern = { 'scala', 'sbt' },
 --   callback = function()
 --     require('metals').initialize_or_attach {}
 --   end,
@@ -128,7 +128,7 @@ vim.api.nvim_create_user_command('ToggleDiagnostics', function()
 end, {})
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = augroup 'lsp-attach',
+  group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
   callback = function(event)
     local map = function(keys, func, desc, mode)
       mode = mode or 'n'
@@ -180,7 +180,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     local client = vim.lsp.get_client_by_id(event.data.client_id)
     if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
-      local highlight_augroup = augroup 'lsp-highlight'
+      local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
       vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
         buffer = event.buf,
         group = highlight_augroup,
@@ -194,7 +194,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       })
 
       vim.api.nvim_create_autocmd('LspDetach', {
-        group = augroup 'lsp-detach',
+        group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
         callback = function(event2)
           vim.lsp.buf.clear_references()
           vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event2.buf }

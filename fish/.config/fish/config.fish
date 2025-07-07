@@ -47,3 +47,7 @@ end
 
 # mise activate fish | source
 mise activate fish | source
+
+# >>> coursier install directory >>>
+set -gx PATH "$PATH:/home/sushi/.local/share/coursier/bin"
+# <<< coursier install directory <<<
