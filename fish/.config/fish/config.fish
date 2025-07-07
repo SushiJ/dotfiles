@@ -23,6 +23,7 @@ end
 alias pbcopy="xclip -selection clipboard"
 alias pbpaste="xclip -selection clipboard -o"
 alias p="pnpm"
+alias dev="cd dev"
 alias px="pnpm dlx"
 alias wmrc="cd ~/.config/i3 && nvim config"
 alias conf="cd ~/.config && nvim config"
