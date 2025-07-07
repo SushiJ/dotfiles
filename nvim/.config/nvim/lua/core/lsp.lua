@@ -1,11 +1,12 @@
 ---@diagnostic disable: need-check-nil
 vim.lsp.enable {
-  'lua_ls',
+  'luals',
   'ts_ls',
   'pyright',
   'clojure_lsp',
   'texlab',
-  'elixirls'
+  'elixirls',
+  'arduinols'
 }
 
 vim.diagnostic.config {
