@@ -51,7 +51,7 @@ local terminal = "alacritty"
 -- local editor = os.getenv("EDITOR") or "vim"
 -- local editor_cmd = terminal .. " -e " .. editor
 
-local modkey = "Mod4"
+local modkey = "Mod1" -- Mod4
 
 awful.layout.layouts = {
 	awful.layout.suit.tile,
