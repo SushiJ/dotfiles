@@ -1,10 +1,10 @@
-return { -- Highlight, edit, and navigate code
+return {
   'nvim-treesitter/nvim-treesitter',
+  lazy = false,
   build = ':TSUpdate',
-  main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-  -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+  main = 'nvim-treesitter.configs',
   opts = {
-    ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+    ensure_installed = { 'bash', 'diff', 'markdown', 'lua', 'elixir', 'eex', 'heex' },
     auto_install = true,
     highlight = {
       enable = true,

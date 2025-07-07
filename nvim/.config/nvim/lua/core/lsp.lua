@@ -4,6 +4,8 @@ vim.lsp.enable {
   'ts_ls',
   'pyright',
   'clojure_lsp',
+  'texlab',
+  'elixirls'
 }
 
 vim.diagnostic.config {
