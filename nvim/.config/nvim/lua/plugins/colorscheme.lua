@@ -19,7 +19,22 @@ return {
   {
     'vague2k/vague.nvim',
     config = function()
-      vim.cmd [[colorscheme vague]]
+      -- vim.cmd [[colorscheme vague]]
     end,
   },
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    config = function()
+      vim.o.background = 'light'
+      vim.cmd 'colorscheme rose-pine'
+    end,
+  },
+  -- {
+  --   'shaunsingh/solarized.nvim',
+  --   config = function()
+  --     vim.o.background = 'light'
+  --     require('solarized').set()
+  --   end,
+  -- },
 }
