@@ -2,13 +2,12 @@ set $mod Mod4
 
 font pango:monospace 8
 
-exec --no-startup-id feh --bg-fill '/home/sushi/Downloads/walls/wall/wallpapers/b-219.jpg'
+exec --no-startup-id feh --bg-fill '/home/sushi/Downloads/walls/wall/wallpapers/b-688.jpg'
 exec --no-startup-id dex --autostart --environment i3
 
 exec --no-startup-id dunst
 # exec --no-startup-id blueman-applet
 exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
 exec --no-startup-id /usr/sbin/lxqt-policykit-agent
 
 # Use pactl to adjust volume in Pipewire.
@@ -20,8 +19,16 @@ bindsym F5 exec --no-startup-id pactl set-default-sink alsa_output.pci-0000_28_0
 bindsym F6 exec --no-startup-id pactl set-default-sink alsa_output.pci-0000_26_00.1.hdmi-stereo
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
+# R: Use flameshot instead of i3-scrot. Print to capture a screenshot with the UI, mod+Print to capture screen
+bindsym Print exec --no-startup-id flameshot gui
+bindsym $mod+Print --release exec --no-startup-id flameshot screen
+bindsym $mod+F4 exec --no-startup-id flameshot gui
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+
+# scripts
+bindsym $mod+Shift+x exec --no-startup-id ~/scripts/xrandr.sh
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
@@ -57,9 +64,9 @@ bindsym $mod+u split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-# bindsym $mod+s layout stacking
+bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+s layout toggle split
+bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -135,23 +142,24 @@ mode "resize" {
 bindsym $mod+g mode "resize"
 
 # Color shemes for windows 
-set $focused-ws    #8C033599
-set $bar-color     #2601263D
-
-set $bgcolor    #8C0335
-set $in-bgcolor #260126
-set $text       #FAFAFA
-set $u-bgcolor  #BF0413
-set $indicator  #a8a3c1
-set $in-text    #8C0335
+# set $focused-ws    #8C033599
+# set $bar-color     #2601263D
+#
+# set $bgcolor    #8C0335
+# set $in-bgcolor #260126
+# set $text       #FAFAFA
+# set $u-bgcolor  #BF0413
+# set $indicator  #a8a3c1
+# set $in-text    #8C0335
 #                       border          background      text            indicator (a line which shows where the next window will be placed)     
-client.focused          $bgcolor        $bgcolor        $text           $indicator
-client.unfocused        $in-bgcolor     $in-bgcolor     $in-text        $in-bgcolor
-client.focused_inactive $in-bgcolor     $in-bgcolor     $in-text        $in-bgcolor
-client.urgent           $u-bgcolor      $u-bgcolor      $text           $u-bgcolor
+# client.focused          $bgcolor        $bgcolor        $text           $indicator
+# client.unfocused        $in-bgcolor     $in-bgcolor     $in-text        $in-bgcolor
+# client.focused_inactive $in-bgcolor     $in-bgcolor     $in-text        $in-bgcolor
+# client.urgent           $u-bgcolor      $u-bgcolor      $text           $u-bgcolor
 
 bar {
-        status_command i3status
+        position top
+        status_command i3blocks
         # colors {
         #         background $bgcolor
         #         separator #191919
@@ -162,3 +170,48 @@ bar {
         #
         # }
 }
+
+# # move between monitors 
+# bindsym $mod+o move workspace to output right
+
+# # focus monitors
+# bindsym $mod+Shift+j focus output left
+# bindsym $mod+Shift+k focus output right
+
+# # change container layout (stacked, tabbed, toggle split)
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
+# bindsym $mod+e layout toggle split
+
+
+# focus the parent container
+# bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# bar {
+#   i3bar_command $HOME/.config/polybar/launch.sh
+#  # status_command i3status
+#   colors {
+#     background #282A36
+#     statusline #F8F8F2
+#     separator  #44475A
+#
+#     focused_workspace  #44475A #44475A #F8F8F2
+#     active_workspace   #282A36 #44475A #F8F8F2
+#     inactive_workspace #282A36 #282A36 #BFBFBF
+#     urgent_workspace   #FF5555 #FF5555 #F8F8F2
+#     binding_mode       #FF5555 #FF5555 #F8F8F2
+#   }
+# }
+
+# # start dmenu
+# bindsym $mod+d exec --no-startup-id rofi -combi-modi window#drun -show combi -modi combi -show-icons
+# bindsym $mod+g exec --no-startup-id rofi -show window
+# # bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
+
+# # manage monitors
+# workspace 1 output HDMI-2
+# workspace 2 output eDP-1
+# exec_always xrandr --output HDMI-2 --auto --left-of eDP-1
