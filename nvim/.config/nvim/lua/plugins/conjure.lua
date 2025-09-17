@@ -1,5 +1,5 @@
 return {
   'Olical/conjure',
-  ft = { 'clojure', 'python' },
+  ft = { 'clojure' },
   lazy = true,
 }

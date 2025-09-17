@@ -24,6 +24,9 @@ return {
       svelte = { 'biome', stop_after_first = true },
       vue = { 'biome', stop_after_first = true },
       clojure = { 'cljfmt' },
+      c = { 'clang-format' },
+      cpp = { 'clang-format' },
+      elm = { 'elm-format' },
     },
   },
 }
