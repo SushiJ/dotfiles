@@ -128,3 +128,7 @@ map('c', 'Q', 'q', {})
 -- plugin development
 map('n', '<leader>sf', '<cmd>source %<cr>', { desc = 'Source current file' })
 map({ 'n', 'v' }, '<leader>x', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
+
+-- TSCnvim
+vim.keymap.set('n', '<leader>to', ':TSCOpen<CR>')
+vim.keymap.set('n', '<leader>tc', ':TSCClose<CR>')
