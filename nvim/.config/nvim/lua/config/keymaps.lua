@@ -124,11 +124,19 @@ map('c', 'Q', 'q', {})
 -- map("v", "d", '"_d', { noremap = true })
 -- map("v", "x", '"_x', { noremap = true })
 
-
 -- plugin development
 map('n', '<leader>sf', '<cmd>source %<cr>', { desc = 'Source current file' })
 map({ 'n', 'v' }, '<leader>x', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
 
 -- TSCnvim
-vim.keymap.set('n', '<leader>to', ':TSCOpen<CR>')
-vim.keymap.set('n', '<leader>tc', ':TSCClose<CR>')
+map('n', '<leader>to', ':TSCOpen<CR>')
+map('n', '<leader>tc', ':TSCClose<CR>')
+
+map('', '<leader>l', function()
+  local config = vim.diagnostic.config() or {}
+  if config.virtual_text then
+    vim.diagnostic.config { virtual_text = false, virtual_lines = true }
+  else
+    vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+  end
+end, { desc = 'toggle lsp_lines' })

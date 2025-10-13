@@ -33,7 +33,7 @@ return {
       end
       if 12 < hour() and hour() < 18 then
         vim.o.background = 'light'
-      vim.g.gruvbox_material_background = 'soft'
+        vim.g.gruvbox_material_background = 'soft'
       end
       vim.g.gruvbox_material_enable_italic = true
       vim.cmd [[colorscheme gruvbox-material]]

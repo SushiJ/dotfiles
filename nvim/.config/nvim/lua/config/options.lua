@@ -3,6 +3,7 @@ vim.g.maplocalleader = ' '
 
 vim.g.have_nerd_font = true
 
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = 'a'
@@ -33,3 +34,4 @@ vim.opt.swapfile = false
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
+vim.opt.shortmess:append 'c'

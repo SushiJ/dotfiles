@@ -76,6 +76,7 @@ vim.lsp.enable { 'vtsls', 'vue_ls' }
 
 vim.diagnostic.config {
   virtual_text = true,
+  virtual_lines = false,
   underline = true,
   update_in_insert = false,
   severity_sort = true,

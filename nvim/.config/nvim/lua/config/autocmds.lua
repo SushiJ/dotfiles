@@ -115,10 +115,7 @@ vim.api.nvim_create_autocmd('FileType', {
 -- })
 
 vim.api.nvim_create_user_command('ToggleDiagnostics', function()
-  if vim.g.diagnostics_enabled == nil then
-    vim.g.diagnostics_enabled = false
-    vim.diagnostic.enable(false)
-  elseif vim.g.diagnostics_enabled then
+  if vim.g.diagnostics_enabled then
     vim.g.diagnostics_enabled = false
     vim.diagnostic.enable(false)
   else
@@ -151,7 +148,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, 'Goto Definition')
     map('gD', vim.lsp.buf.declaration, 'Goto Declaration')
 
-    map('<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<cr>', 'Goto Definition in Vertical Split')
+    map('<leader>gv', '<cmd>vsplit | lua vim.lsp.buf.definition()<cr>', 'Goto Definition in Vertical Split')
 
     map(']d', diagnostic_goto(true), 'Next Diagnostic')
     map('[d', diagnostic_goto(false), 'Prev Diagnostic')
@@ -167,7 +164,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       { '<leader>cs', vim.lsp.buf.signature_help, desc = 'Display Signature Information' },
       { '<leader>cd', vim.diagnostic.open_float, desc = '[C]ode [D]iagnostics' },
       { '<leader>rn', vim.lsp.buf.rename, desc = 'Rename all references' },
-      { '<leader>lf', vim.lsp.buf.format, desc = 'Format' },
     }
 
     local function client_supports_method(client, method, bufnr)
