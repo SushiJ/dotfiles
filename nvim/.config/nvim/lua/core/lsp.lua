@@ -18,6 +18,7 @@ vim.lsp.enable {
   'nil_ls',
   'astro',
   'ruff',
+  'gopls',
 }
 
 local vue_language_server_path = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server'

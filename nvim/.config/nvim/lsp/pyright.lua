@@ -16,9 +16,6 @@ return {
     python = {
       analysis = {
         ignore = { '*' },
-        -- autoSearchPaths = true,
-        -- diagnosticMode = 'openFilesOnly',
-        -- useLibraryCodeForTypes = true,
       },
     },
   },
