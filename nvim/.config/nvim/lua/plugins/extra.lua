@@ -1,9 +1,4 @@
 return {
-  {
-    'nvim-tree/nvim-web-devicons',
-    enabled = true,
-  },
-  { 'tpope/vim-sleuth' }, -- Detect tabstop and shiftwidth automatically
   { 'mbbill/undotree' },
   { 'Bilal2453/luvit-meta', lazy = true },
   {
@@ -43,44 +38,6 @@ return {
       }
     end,
   },
-  {
-    'stevearc/oil.nvim',
-    opts = {},
-    config = function()
-      require('oil').setup {
-        skip_confirm_for_simple_edits = true,
-        view_options = {
-          show_hidden = true,
-          natural_order = true,
-          is_always_hidden = function(name, _)
-            return name == '..' or name == '.git' or name == 'node_modules'
-          end,
-        },
-        float = {
-          max_width = 100,
-          max_height = 100,
-        },
-      }
-    end,
-  },
-  {
-    'kristijanhusak/vim-dadbod-ui',
-    dependencies = {
-      { 'tpope/vim-dadbod', lazy = true },
-      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-    },
-    cmd = {
-      'DBUI',
-      'DBUIToggle',
-      'DBUIAddConnection',
-      'DBUIFindBuffer',
-    },
-    init = function()
-      -- Your DBUI configuration
-      vim.g.db_ui_use_nerd_fonts = 1
-    end,
-  },
-  { 'tpope/vim-fugitive' },
   { 'akinsho/toggleterm.nvim', version = '*', config = true },
   {
     'smjonas/inc-rename.nvim',
@@ -93,6 +50,13 @@ return {
   {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',
+    config = function()
+      require('ufo').setup {
+        provider_selector = function()
+          return { 'treesitter', 'indent' }
+        end,
+      }
+    end,
   },
   {
     'lervag/vimtex',
@@ -105,6 +69,9 @@ return {
     end,
   },
   {
-    'mfussenegger/nvim-jdtls',
+    'dmmulroy/tsc.nvim',
+    config = function()
+      require('tsc').setup()
+    end,
   },
 }

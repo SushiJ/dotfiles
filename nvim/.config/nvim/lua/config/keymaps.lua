@@ -4,13 +4,13 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-map('n', 'zR', function()
-  require('ufo').openAllFolds()
-end, { desc = 'open all folds' })
-
-map('n', 'zM', function()
-  require('ufo').closeAllFolds()
-end, { desc = 'close all folds' })
+-- map('n', 'zR', function()
+--   require('ufo').openAllFolds()
+-- end, { desc = 'open all folds' })
+--
+-- map('n', 'zM', function()
+--   require('ufo').closeAllFolds()
+-- end, { desc = 'close all folds' })
 
 map('n', '<leader>cr', function()
   return ':IncRename ' .. vim.fn.expand '<cword>'
@@ -118,6 +118,25 @@ map('c', 'Wq', 'wq', {})
 map('c', 'W', 'w', {})
 map('c', 'Q', 'q', {})
 
+-- map("n", "d", '"_d', { noremap = true })
+-- map("n", "D", '"_D', { noremap = true })
+-- map("n", "x", '"_x', { noremap = true })
+-- map("v", "d", '"_d', { noremap = true })
+-- map("v", "x", '"_x', { noremap = true })
+
 -- plugin development
 map('n', '<leader>sf', '<cmd>source %<cr>', { desc = 'Source current file' })
 map({ 'n', 'v' }, '<leader>x', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
+
+-- TSCnvim
+map('n', '<leader>to', ':TSCOpen<CR>')
+map('n', '<leader>tc', ':TSCClose<CR>')
+
+map('', '<leader>l', function()
+  local config = vim.diagnostic.config() or {}
+  if config.virtual_text then
+    vim.diagnostic.config { virtual_text = false, virtual_lines = true }
+  else
+    vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+  end
+end, { desc = 'toggle lsp_lines' })

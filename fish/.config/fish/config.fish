@@ -13,6 +13,7 @@ set -gx PATH /home/sushi/.local/share/mise/shims $PATH
 if type -q eza
   alias ls "eza -l -g --icons"
   alias la "ls -a"
+  alias l "ls"
 end
 
 if type -q bat
@@ -23,11 +24,13 @@ end
 alias pbcopy="xclip -selection clipboard"
 alias pbpaste="xclip -selection clipboard -o"
 alias p="pnpm"
+alias dev="cd dev"
 alias px="pnpm dlx"
 alias wmrc="cd ~/.config/i3 && nvim config"
 alias conf="cd ~/.config && nvim config"
 alias dots="cd ~/.dotfiles"
 alias emacs="emacs -nw"
+alias sadf="cd ~/dev/sadf"
 
 zoxide init --cmd cd fish | source
 
@@ -46,3 +49,16 @@ end
 
 # mise activate fish | source
 mise activate fish | source
+
+# >>> coursier install directory >>>
+set -gx PATH "$PATH:/home/sushi/.local/share/coursier/bin"
+# <<< coursier install directory <<<
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+test -r '/home/sushi/.opam/opam-init/init.fish' && source '/home/sushi/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
+# END opam configuration

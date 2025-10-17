@@ -1,0 +1,35 @@
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+SCRIPT_DIR=/home/sushi/scripts
+separator_block_width=15
+markup=none
+
+[memory]
+command=$SCRIPT_DIR/memory/memory
+interval=10
+
+[weather]
+command=$SCRIPT_DIR/weather.sh
+interval=3600
+color=#A4C2F4
+
+[time]
+command=date '+%a %d %b %H:%M'
+interval=5
+color=#F49448
+

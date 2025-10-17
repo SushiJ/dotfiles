@@ -1,42 +1,83 @@
+---@diagnostic disable: need-check-nil
 vim.lsp.enable {
-  'lua_ls',
+  'arduino_language_server',
+  'luals',
   'ts_ls',
   'pyright',
-  'clojure_lsp'
-  -- 'vue_ls',
+  'clojure_lsp',
+  'texlab',
+  'svelte',
+  'gleam',
+  'clangd',
+  'rust_analyzer',
+  'expert',
+  'elmls',
+  'eslint',
+  'jsonls',
+  'omnisharp',
+  'nil_ls',
+  'astro',
+  'ruff',
+  'gopls',
 }
 
--- vim.lsp.config('ts_ls', {
---   init_options = {
---     plugins = {
---       {
---         name = '@vue/typescript-plugin',
---         location = '/home/sushi/.asdf/installs/nodejs/22.16.0/lib/node_modules/@vue/typescript-plugin',
---         languages = { 'javascript', 'typescript', 'vue' },
---       },
---     },
---   },
---   filetypes = {
---     'javascript',
---     'typescript',
---     'vue',
---   },
--- })
---
--- vim.lsp.config('vue_ls', {
---   cmd = { 'vue-language-server', '--stdio' },
---   filetypes = { 'vue' },
---   root_markers = { 'package.json' },
---   -- https://github.com/vuejs/language-tools/blob/v2/packages/language-server/lib/types.ts
---   init_options = {
---     typescript = {
---       tsdk = '/home/sushi/.local/share/pnpm/tsc',
---     },
---   },
--- })
+local vue_language_server_path = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server'
+
+local vue_plugin = {
+  name = '@vue/typescript-plugin',
+  location = vue_language_server_path,
+  languages = { 'vue' },
+  configNamespace = 'typescript',
+}
+
+local vtsls_config = {
+  settings = {
+    vtsls = {
+      tsserver = {
+        globalPlugins = {
+          vue_plugin,
+        },
+      },
+    },
+  },
+  filetypes = { 'vue' },
+}
+
+local vue_ls_config = {
+  on_init = function(client)
+    client.handlers['tsserver/request'] = function(_, result, context)
+      local clients = vim.lsp.get_clients { bufnr = context.bufnr, name = 'vtsls' }
+      if #clients == 0 then
+        vim.notify('Could not found `vtsls` lsp client, vue_lsp would not work without it.', vim.log.levels.ERROR)
+        return
+      end
+      local ts_client = clients[1]
+
+      local param = unpack(result)
+      local id, command, payload = unpack(param)
+      ts_client:exec_cmd({
+        title = 'vue_request_forward', -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
+        command = 'typescript.tsserverRequest',
+        arguments = {
+          command,
+          payload,
+        },
+      }, { bufnr = context.bufnr }, function(_, r)
+        local response_data = { { id, r.body } }
+        ---@diagnostic disable-next-line: param-type-mismatch
+        client:notify('tsserver/response', response_data)
+      end)
+    end
+  end,
+}
+
+vim.lsp.config('vtsls', vtsls_config)
+vim.lsp.config('vue_ls', vue_ls_config)
+vim.lsp.enable { 'vtsls', 'vue_ls' }
 
 vim.diagnostic.config {
   virtual_text = true,
+  virtual_lines = false,
   underline = true,
   update_in_insert = false,
   severity_sort = true,
@@ -235,7 +276,7 @@ local function lsp_info()
     print('  Filetypes: ' .. table.concat(client.config.filetypes or {}, ', '))
 
     -- Server status
-    if client.is_stopped() then
+    if client.is_stopped then
       print '  Status: 󰅚 Stopped'
     else
       print '  Status: 󰄬 Running'
