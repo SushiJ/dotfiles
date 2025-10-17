@@ -24,13 +24,13 @@ end
 alias pbcopy="xclip -selection clipboard"
 alias pbpaste="xclip -selection clipboard -o"
 alias p="pnpm"
-alias dev="cd dev"
+alias dev="cd code"
 alias px="pnpm dlx"
 alias wmrc="cd ~/.config/i3 && nvim config"
 alias conf="cd ~/.config && nvim config"
 alias dots="cd ~/.dotfiles"
 alias emacs="emacs -nw"
-alias sadf="cd ~/dev/sadf"
+alias sadf="cd ~/code/sadf"
 
 zoxide init --cmd cd fish | source
 
