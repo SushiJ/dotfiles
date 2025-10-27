@@ -1,5 +1,4 @@
-{ pkgs, ...}:
-{
+{ _, ... }: {
   nixpkgs = {
     config = {
       allowUnfree = true;
@@ -10,18 +9,9 @@
   home.username = "sushi";
   home.homeDirectory = "/home/sushi";
 
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
+  home.sessionVariables = { EDITOR = "nvim"; };
 
-  home.packages = [
-    pkgs.ruff
-    pkgs.uv
-    pkgs.babashka
-
-    pkgs.cmake
-    pkgs.ninja
-  ];
+  home.packages = [ ];
 
   programs.home-manager.enable = true;
 
