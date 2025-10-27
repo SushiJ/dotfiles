@@ -13,8 +13,6 @@ vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
-vim.opt.clipboard = 'unnamedplus'
-
 vim.opt.guicursor = ''
 vim.opt.breakindent = true
 vim.opt.undofile = true

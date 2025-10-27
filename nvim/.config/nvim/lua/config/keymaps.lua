@@ -97,12 +97,13 @@ map('n', '<C-u>', '<C-u>zz', cc)
 map('n', 'n', 'nzzzv', cc)
 map('n', 'N', 'Nzzzv', cc)
 
-map({ 'n', 'v' }, '<leader>y', [["+y]], { desc = 'Yank to clipboard' })
-map('n', '<leader>Y', [["+Y]], { desc = 'Yank to clip' })
+map({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>', { desc = 'Yank to system clipboard' })
+map({ 'n', 'v', 'x' }, '<leader>d', '"+d<CR>', { desc = 'Delete to system clipboard' })
 
 -- misc.
 map('n', '<leader>gS', vim.cmd.Git, { desc = 'Fugitive' })
 map('n', '<leader>ut', vim.cmd.UndotreeToggle, { desc = 'Toggle undoTree' })
+
 map('n', '<leader>xl', '<cmd>lopen<cr>', { desc = 'Location List' })
 map('n', '<leader>xq', '<cmd>copen<cr>', { desc = 'Quickfix List' })
 
@@ -118,15 +119,8 @@ map('c', 'Wq', 'wq', {})
 map('c', 'W', 'w', {})
 map('c', 'Q', 'q', {})
 
--- map("n", "d", '"_d', { noremap = true })
--- map("n", "D", '"_D', { noremap = true })
--- map("n", "x", '"_x', { noremap = true })
--- map("v", "d", '"_d', { noremap = true })
--- map("v", "x", '"_x', { noremap = true })
-
--- plugin development
-map('n', '<leader>sf', '<cmd>source %<cr>', { desc = 'Source current file' })
-map({ 'n', 'v' }, '<leader>x', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
+map('n', '<leader>xf', '<cmd>source %<cr>', { desc = 'Source current file' })
+map({ 'n', 'v' }, '<leader>xc', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
 
 -- TSCnvim
 map('n', '<leader>to', ':TSCOpen<CR>')

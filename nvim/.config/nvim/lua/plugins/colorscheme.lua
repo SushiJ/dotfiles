@@ -1,19 +1,19 @@
-local hour = function()
-  return os.date('*t').hour
-end
+-- local hour = function()
+--   return os.date('*t').hour
+-- end
 
 return {
-  -- {
-  --   'folke/tokyonight.nvim',
-  --   lazy = false,
-  --   priority = 1000,
-  --   opts = {},
-  --   config = function()
-  --     if hour() >= 18 or hour() < 12 then
-  --       vim.cmd [[colorscheme tokyonight-night]]
-  --     end
-  --   end,
-  -- },
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      -- if hour() >= 18 or hour() < 12 then
+      vim.cmd [[colorscheme tokyonight-night]]
+      -- end
+    end,
+  },
   -- {
   --   'rose-pine/neovim',
   --   name = 'rose-pine',
@@ -24,21 +24,21 @@ return {
   --     end
   --   end,
   -- },
-  {
-    'sainnhe/gruvbox-material',
-    config = function()
-      if hour() >= 18 or hour() < 12 then
-        vim.o.background = 'dark'
-        vim.g.gruvbox_material_background = 'hard'
-      end
-      if 12 < hour() and hour() < 18 then
-        vim.o.background = 'light'
-        vim.g.gruvbox_material_background = 'soft'
-      end
-      vim.g.gruvbox_material_enable_italic = true
-      vim.cmd [[colorscheme gruvbox-material]]
-    end,
-  },
+  -- {
+  --   'sainnhe/gruvbox-material',
+  --   config = function()
+  --     if hour() >= 18 or hour() < 12 then
+  --       vim.o.background = 'dark'
+  --       vim.g.gruvbox_material_background = 'hard'
+  --     end
+  --     if 12 < hour() and hour() < 18 then
+  --       vim.o.background = 'light'
+  --       vim.g.gruvbox_material_background = 'soft'
+  --     end
+  --     vim.g.gruvbox_material_enable_italic = true
+  --     vim.cmd [[colorscheme gruvbox-material]]
+  --   end,
+  -- },
   -- {
   --   'vague2k/vague.nvim',
   --   config = function()
