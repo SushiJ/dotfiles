@@ -12,7 +12,7 @@ return {
       },
       signature = { enabled = true },
       sources = {
-        default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+        default = { 'lsp', 'buffer', 'path', 'snippets', 'lazydev', "cmdline" },
         providers = {
           lazydev = {
             name = 'LazyDev',

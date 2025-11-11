@@ -8,43 +8,9 @@ return {
     opts = { signs = false },
   },
   {
-    'numToStr/Comment.nvim',
-    event = { 'BufEnter' },
-    dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      config = function()
-        require('ts_context_commentstring').setup {
-          enable_autocmd = false,
-        }
-      end,
-    },
+    'norcalli/nvim-colorizer.lua',
     config = function()
-      --- Comment configuration object _can_ take a partial and is merged in
-      ---@diagnostic disable-next-line: missing-fields
-      require('Comment').setup {
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-      }
-    end,
-  },
-  {
-    'uga-rosa/ccc.nvim',
-    config = function()
-      local ccc = require 'ccc'
-      ccc.setup {
-        highlighter = {
-          auto_enable = true,
-          lsp = true,
-        },
-      }
-    end,
-  },
-  { 'akinsho/toggleterm.nvim', version = '*', config = true },
-  {
-    'smjonas/inc-rename.nvim',
-    config = function()
-      require('inc_rename').setup {
-        input_buffer_type = 'dressing',
-      }
+      require('colorizer').setup()
     end,
   },
   {

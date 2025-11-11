@@ -1,12 +1,13 @@
 return {
   {
-    'echasnovski/mini.statusline',
-    dependencies = {},
+    'echasnovski/mini.nvim',
     version = '*',
     config = function()
-      local statusline = require 'mini.statusline'
-      statusline.setup {
+      require('mini.statusline').setup {
         content = {
+          section_location = function()
+            return '%2l:%-2v'
+          end,
           active = function()
             local mode, mode_hl = MiniStatusline.section_mode { trunc_width = 120 }
             local git = MiniStatusline.section_git { trunc_width = 40 }
@@ -50,41 +51,20 @@ return {
           end,
         },
       }
-
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
-    end,
-  },
-  {
-    'echasnovski/mini.bufremove',
-    version = '*',
-    config = function()
+      -- Add/delete/replace surroundings (brackets, quotes, etc.)
+      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+      -- - sd'   - [S]urround [D]elete [']quotes
+      -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.bufremove').setup()
-    end,
-  },
-  {
-    -- Add/delete/replace surroundings (brackets, quotes, etc.)
-    -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-    -- - sd'   - [S]urround [D]elete [']quotes
-    -- - sr)'  - [S]urround [R]eplace [)] [']
-    'echasnovski/mini.surround',
-    version = '*',
-    config = function()
       require('mini.surround').setup()
-    end,
-  },
-  {
-    -- Better Around/Inside textobjects
-    -- Examples:
-    --  - va)  - [V]isually select [A]round [)]paren
-    --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
-    --  - ci'  - [C]hange [I]nside [']quote
-    'echasnovski/mini.ai',
-    version = '*',
-    config = function()
+      --  - va)  - [V]isually select [A]round [)]paren
+      --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
+      --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
+      require('mini.files').setup {}
+      require('mini.comment').setup {}
+      require('mini.pairs').setup {}
+      require('mini.icons').setup {}
     end,
   },
 }

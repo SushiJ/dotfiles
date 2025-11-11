@@ -105,24 +105,40 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.colorcolumn = ''
   end,
 })
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'VeryLazy',
+  callback = function()
+    -- Setup some globals for debugging (lazy-loaded)
+    _G.dd = function(...)
+      Snacks.debug.inspect(...)
+    end
+    _G.bt = function()
+      Snacks.debug.backtrace()
+    end
 
--- vim.api.nvim_create_autocmd('FileType', {
---   group = augroup 'nvim-metals',
---   pattern = { 'scala', 'sbt' },
---   callback = function()
---     require('metals').initialize_or_attach {}
---   end,
--- })
+    -- Override print to use snacks for `:=` command
+    if vim.fn.has 'nvim-0.11' == 1 then
+      vim._print = function(_, ...)
+        dd(...)
+      end
+    else
+      vim.print = _G.dd
+    end
 
-vim.api.nvim_create_user_command('ToggleDiagnostics', function()
-  if vim.g.diagnostics_enabled then
-    vim.g.diagnostics_enabled = false
-    vim.diagnostic.enable(false)
-  else
-    vim.g.diagnostics_enabled = true
-    vim.diagnostic.enable()
-  end
-end, {})
+    -- Create some toggle mappings
+    Snacks.toggle.option('spell', { name = 'Spelling' }):map '<leader>ts'
+    Snacks.toggle.option('wrap', { name = 'Wrap' }):map '<leader>tw'
+    Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map '<leader>tL'
+    Snacks.toggle.diagnostics():map '<leader>td'
+    Snacks.toggle.line_number():map '<leader>tl'
+    Snacks.toggle.option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map '<leader>uc'
+    Snacks.toggle.treesitter():map '<leader>tT'
+    Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map '<leader>ub'
+    Snacks.toggle.inlay_hints():map '<leader>th'
+    Snacks.toggle.indent():map '<leader>tg'
+    Snacks.toggle.dim():map '<leader>tD'
+  end,
+})
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
@@ -141,27 +157,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     map('K', vim.lsp.buf.hover, 'Hover Documentation')
-    map('gs', vim.lsp.buf.signature_help, 'Signature Documentation')
     map('<C-k>', vim.lsp.buf.signature_help, 'Signature Help', 'i')
-    map('gd', function()
-      Snacks.picker.lsp_definitions()
-    end, 'Goto Definition')
-    map('gD', vim.lsp.buf.declaration, 'Goto Declaration')
 
     map('<leader>gv', '<cmd>vsplit | lua vim.lsp.buf.definition()<cr>', 'Goto Definition in Vertical Split')
 
     map(']d', diagnostic_goto(true), 'Next Diagnostic')
     map('[d', diagnostic_goto(false), 'Prev Diagnostic')
-    map(']e', diagnostic_goto(true, 'ERROR'), 'Next Error')
-    map('[e', diagnostic_goto(false, 'ERROR'), 'Prev Error')
-    map(']w', diagnostic_goto(true, 'WARN'), 'Next Warning')
-    map('[w', diagnostic_goto(false, 'WARN'), 'Prev Warning')
 
     local wk = require 'which-key'
     wk.add {
-      { '<leader>ca', vim.lsp.buf.code_action, desc = '[C]ode [A]ction' },
       { '<leader>cA', vim.lsp.buf.range_code_action, desc = 'Range Code Actions' },
-      { '<leader>cs', vim.lsp.buf.signature_help, desc = 'Display Signature Information' },
       { '<leader>cd', vim.diagnostic.open_float, desc = '[C]ode [D]iagnostics' },
       { '<leader>rn', vim.lsp.buf.rename, desc = 'Rename all references' },
     }
@@ -198,14 +203,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
       })
     end
 
-    if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-      map('<leader>th', function()
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-      end, '[T]oggle Inlay [H]ints')
-    end
-
     if client.name == 'ruff' then
       client.server_capabilities.hoverProvider = false
     end
   end,
 })
+
+-- vim.api.nvim_create_autocmd('FileType', {
+--   group = augroup 'nvim-metals',
+--   pattern = { 'scala', 'sbt' },
+--   callback = function()
+--     require('metals').initialize_or_attach {}
+--   end,
+-- })
