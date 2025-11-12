@@ -2,6 +2,9 @@ return {
   {
     'echasnovski/mini.nvim',
     version = '*',
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
     config = function()
       require('mini.statusline').setup {
         content = {

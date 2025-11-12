@@ -308,7 +308,7 @@ local keys = {
     desc = 'Goto Definition',
   },
   {
-    'gd',
+    'gD',
     function()
       Snacks.picker.lsp_declarations()
     end,
