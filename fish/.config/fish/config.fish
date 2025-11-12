@@ -32,7 +32,7 @@ alias dots="cd ~/.dotfiles"
 alias emacs="emacs -nw"
 alias sadf="cd ~/code/sadf"
 
-zoxide init --cmd cd fish | source
+zoxide init fish | source
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"

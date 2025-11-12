@@ -11,45 +11,49 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.color_scheme = "tokyonight"
+config.color_scheme = "Tokyo Night"
+-- config.color_scheme = "tokyonight"
 config.font = wezterm.font_with_fallback({ "GeistMono", "JetBrainsMono", "Ubuntu Mono" })
 config.font_size = 16.0
+config.leader = {
+	key = "a",
+	mods = "CTRL",
+}
 
 -- Set background to same color as neovim
 config.colors = {
-	tab_bar = {
-		background = "#000000",
-		-- The active tab is the one that has focus in the window
-		active_tab = {
-			bg_color = "#000000",
-			fg_color = "#eb6f92",
-			intensity = "Bold",
-			italic = true,
-		},
-		-- Inactive tabs are the tabs that do not have focus
-		inactive_tab = {
-			bg_color = "#000000",
-			fg_color = "#e0def4",
-			italic = true,
-		},
-
-		inactive_tab_hover = {
-			bg_color = "#21202e",
-			fg_color = "#e0def4",
-			italic = true,
-		},
-
-		new_tab = {
-			bg_color = "#000000",
-			fg_color = "#ebbcba",
-		},
-
-		new_tab_hover = {
-			bg_color = "#21202e",
-			fg_color = "#e0def4",
-		},
-	},
-	background = "#000000",
+	-- tab_bar = {
+	-- 	background = "#000000",
+	-- 	-- The active tab is the one that has focus in the window
+	-- 	active_tab = {
+	-- 		bg_color = "#000000",
+	-- 		fg_color = "#eb6f92",
+	-- 		intensity = "Bold",
+	-- 		italic = true,
+	-- 	},
+	-- 	-- Inactive tabs are the tabs that do not have focus
+	-- 	inactive_tab = {
+	-- 		bg_color = "#000000",
+	-- 		fg_color = "#e0def4",
+	-- 		italic = true,
+	-- 	},
+	--
+	-- 	inactive_tab_hover = {
+	-- 		bg_color = "#21202e",
+	-- 		fg_color = "#e0def4",
+	-- 		italic = true,
+	-- 	},
+	--
+	-- 	new_tab = {
+	-- 		bg_color = "#000000",
+	-- 		fg_color = "#ebbcba",
+	-- 	},
+	--
+	-- 	new_tab_hover = {
+	-- 		bg_color = "#21202e",
+	-- 		fg_color = "#e0def4",
+	-- 	},
+	-- },
 }
 
 -- default is true, has more "native" look
@@ -84,10 +88,9 @@ config.keys = {
 	{ key = "L", mods = "SHIFT|ALT|CTRL", action = act.AdjustPaneSize({ "Right", 2 }) },
 }
 
--- config.default_prog = { "/usr/bin/fish" }
-
 config.tab_bar_at_bottom = false
 config.freetype_load_target = "HorizontalLcd"
 
+require("plugins.tmux").apply_to_config(config, {})
 -- and finally, return the configuration to wezterm
 return config
