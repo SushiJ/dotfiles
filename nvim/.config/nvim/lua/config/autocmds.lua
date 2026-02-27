@@ -105,6 +105,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.colorcolumn = ''
   end,
 })
+
 vim.api.nvim_create_autocmd('User', {
   pattern = 'VeryLazy',
   callback = function()
@@ -148,35 +149,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
     end
 
-    local function diagnostic_goto(next, severity)
-      local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-      severity = severity and vim.diagnostic.severity[severity] or nil
-      return function()
-        go { severity = severity }
-      end
-    end
-
-    map('K', vim.lsp.buf.hover, 'Hover Documentation')
-    map('<C-k>', vim.lsp.buf.signature_help, 'Signature Help', 'i')
-
     map('<leader>gv', '<cmd>vsplit | lua vim.lsp.buf.definition()<cr>', 'Goto Definition in Vertical Split')
-
-    map(']d', diagnostic_goto(true), 'Next Diagnostic')
-    map('[d', diagnostic_goto(false), 'Prev Diagnostic')
 
     local wk = require 'which-key'
     wk.add {
-      { '<leader>cA', vim.lsp.buf.range_code_action, desc = 'Range Code Actions' },
       { '<leader>cd', vim.diagnostic.open_float, desc = '[C]ode [D]iagnostics' },
-      { '<leader>rn', vim.lsp.buf.rename, desc = 'Rename all references' },
     }
 
     local function client_supports_method(client, method, bufnr)
-      if vim.fn.has 'nvim-0.11' == 1 then
-        return client:supports_method(method, bufnr)
-      else
-        return client.supports_method(method, { bufnr = bufnr })
-      end
+      return client:supports_method(method, bufnr)
     end
 
     local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -208,11 +189,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
-
--- vim.api.nvim_create_autocmd('FileType', {
---   group = augroup 'nvim-metals',
---   pattern = { 'scala', 'sbt' },
---   callback = function()
---     require('metals').initialize_or_attach {}
---   end,
--- })

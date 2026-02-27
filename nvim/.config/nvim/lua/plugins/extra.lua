@@ -40,4 +40,5 @@ return {
       require('tsc').setup()
     end,
   },
+  { 'dmmulroy/ts-error-translator.nvim' },
 }

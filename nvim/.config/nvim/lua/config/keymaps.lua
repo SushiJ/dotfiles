@@ -445,10 +445,6 @@ map('n', '<leader>xq', '<cmd>copen<cr>', { desc = 'Quickfix List' })
 -- YEP
 map('i', '<C-c>', '<Esc>', { desc = 'Normal mode' })
 
--- Diagnostic keymaps
-map('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-map('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-
 map('c', 'WQ', 'wq', {})
 map('c', 'Wq', 'wq', {})
 map('c', 'W', 'w', {})

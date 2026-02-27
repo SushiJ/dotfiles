@@ -13,9 +13,7 @@ return {
     words = { enabled = true },
     terminal = { enabled = true },
     toggle = {
-      map = vim.keymap.set,
-      enabled = true,
-      which_key = true,
-    },
+      enabled = true
+    }
   },
 }

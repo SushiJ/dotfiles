@@ -58,8 +58,8 @@ return {
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.bufremove').setup()
-      require('mini.surround').setup()
+
+      -- require('mini.surround').setup()
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
@@ -68,6 +68,7 @@ return {
       require('mini.comment').setup {}
       require('mini.pairs').setup {}
       require('mini.icons').setup {}
+      require('mini.bufremove').setup()
     end,
   },
 }

@@ -1,24 +1,24 @@
-local hour = function()
-  return os.date('*t').hour
-end
-
-local style = function()
-  if hour() >= 18 or hour() < 12 then
-    return 'dark'
-  else
-    return 'light'
-  end
-end
-
 return {
   {
-    'navarasu/onedark.nvim',
+
+    'embark-theme/vim',
+    lazy = false,
     priority = 1000,
+    name = 'embark',
     config = function()
-      require('onedark').setup {
-        style = style(),
+      -- vim.cmd.colorscheme 'embark'
+    end,
+  },
+  {
+    'Shatur/neovim-ayu',
+    config = function()
+      local ayu = require 'ayu'
+      ayu.setup {
+        mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+        terminal = true, -- Set to `false` to let terminal manage its own colors.
+        overrides = {}, -- A dictionary of group names, each associated with a dictionary of parameters (`bg`, `fg`, `sp` and `style`) and colors in hex.
       }
-      require('onedark').load()
+      ayu.colorscheme()
     end,
   },
 }
