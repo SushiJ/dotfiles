@@ -7,6 +7,7 @@ general {
 order += "disk /"
 order += "disk /home"
 order += "memory"
+order += "load"
 order += "ethernet enp34s0"
 order += "time"
 
@@ -24,6 +25,10 @@ memory {
         format = "%used / %total"
         threshold_degraded = "10%"
         format_degraded = "MEMORY: %free"
+}
+
+load {
+        format = "load: %1min, %5min, %15min"
 }
 
 disk "/" {
