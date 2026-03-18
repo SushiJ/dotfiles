@@ -1,25 +1,26 @@
 vim.lsp.enable {
-  'arduino_language_server',
+  -- 'arduino_language_server',
   'luals',
   'ts_ls',
   'pyright',
   'clojure_lsp',
   'texlab',
   'svelte',
-  'gleam',
+  -- 'gleam',
   'clangd',
-  'rust_analyzer',
-  'expert',
-  'elmls',
+  -- 'rust_analyzer',
+  'expert', -- Elixir
+  -- 'elmls',
   'eslint',
   'jsonls',
-  'omnisharp',
+  -- 'omnisharp',
   'nil_ls',
   'astro',
   'ruff',
   'gopls',
   'oxlint',
   'tailwindcss',
+  'tinymist',
 }
 
 local vue_language_server_path = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server'

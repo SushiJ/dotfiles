@@ -28,6 +28,7 @@ return {
       typescriptreact = { 'prettierd', 'prettier' },
       -- typescriptreact = { 'biome', 'eslint_d' },
       svelte = { 'biome' },
+      astro = { 'prettierd', 'prettier' },
       vue = { 'prettierd', 'prettier' },
       -- vue = { 'biome', 'eslint_d' },
       clojure = { 'cljfmt' },
