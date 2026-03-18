@@ -1,13 +1,11 @@
 set fish_greeting ""
 set -gx COLORTERM truecolor
 
-set -gx PATH "/usr/sbin" "/home/sushi/.local/bin" "/home/sushi/development/flutter/bin" "/home/sushi/.local/share/nvim/mason/bin" "/home/sushi/Android/Sdk/platform-tools" "/home/sushi/.local/share/nvim/mason/bin" "/home/sushi/.asdf/shims/" "/home/sushi/Android/Sdk/cmdline-tools/latest/bin" $PATH
+set -gx PATH "/usr/sbin" "/home/sushi/.local/bin" "/home/sushi/development/flutter/bin" "/home/sushi/.local/share/nvim/mason/bin" "/home/sushi/Android/Sdk/platform-tools" "/home/sushi/Android/Sdk/cmdline-tools/latest/bin" "/home/sushi/.local/share/kvim/mason/bin" $PATH
 
 set -gx CHROME_EXECUTABLE "/usr/sbin/google-chrome-stable"
 set -gx EDITOR "nvim"
 set -gx ANDROID_HOME "/home/sushi/Android/Sdk"
-
-set -gx PATH /home/sushi/.local/share/mise/shims $PATH
 
 # Alias
 if type -q eza
