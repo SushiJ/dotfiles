@@ -1,4 +1,4 @@
-{ _, ... }: {
+{ pkgs, ... }: {
   nixpkgs = {
     config = {
       allowUnfree = true;
@@ -11,7 +11,9 @@
 
   home.sessionVariables = { EDITOR = "nvim"; };
 
-  home.packages = [ ];
+  home.packages = with pkgs; [
+    typst
+  ];
 
   programs.home-manager.enable = true;
 
