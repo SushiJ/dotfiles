@@ -11,9 +11,10 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.color_scheme = "Tokyo Night"
+config.color_scheme = "Ayu Dark (Gogh)"
+-- config.color_scheme = "Tokyo Night"
 -- config.color_scheme = "tokyonight"
-config.font = wezterm.font_with_fallback({ "GeistMono", "JetBrainsMono", "Ubuntu Mono" })
+config.font = wezterm.font_with_fallback({ "TX-02", "GeistMono", "JetBrainsMono", "Ubuntu Mono" })
 config.font_size = 16.0
 config.leader = {
 	key = "a",
@@ -22,38 +23,38 @@ config.leader = {
 
 -- Set background to same color as neovim
 config.colors = {
-	-- tab_bar = {
-	-- 	background = "#000000",
-	-- 	-- The active tab is the one that has focus in the window
-	-- 	active_tab = {
-	-- 		bg_color = "#000000",
-	-- 		fg_color = "#eb6f92",
-	-- 		intensity = "Bold",
-	-- 		italic = true,
-	-- 	},
-	-- 	-- Inactive tabs are the tabs that do not have focus
-	-- 	inactive_tab = {
-	-- 		bg_color = "#000000",
-	-- 		fg_color = "#e0def4",
-	-- 		italic = true,
-	-- 	},
-	--
-	-- 	inactive_tab_hover = {
-	-- 		bg_color = "#21202e",
-	-- 		fg_color = "#e0def4",
-	-- 		italic = true,
-	-- 	},
-	--
-	-- 	new_tab = {
-	-- 		bg_color = "#000000",
-	-- 		fg_color = "#ebbcba",
-	-- 	},
-	--
-	-- 	new_tab_hover = {
-	-- 		bg_color = "#21202e",
-	-- 		fg_color = "#e0def4",
-	-- 	},
-	-- },
+	tab_bar = {
+		background = "#000000",
+		-- The active tab is the one that has focus in the window
+		active_tab = {
+			bg_color = "#000000",
+			fg_color = "#ff8f40",
+			intensity = "Bold",
+			italic = true,
+		},
+		-- Inactive tabs are the tabs that do not have focus
+		inactive_tab = {
+			bg_color = "#000000",
+			fg_color = "#e0def4",
+			italic = true,
+		},
+
+		inactive_tab_hover = {
+			bg_color = "#21202e",
+			fg_color = "#e0def4",
+			italic = true,
+		},
+
+		new_tab = {
+			bg_color = "#000000",
+			fg_color = "#ebbcba",
+		},
+
+		new_tab_hover = {
+			bg_color = "#21202e",
+			fg_color = "#e0def4",
+		},
+	},
 }
 
 -- default is true, has more "native" look

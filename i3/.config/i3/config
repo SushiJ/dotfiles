@@ -2,7 +2,7 @@ set $mod Mod4
 
 font pango:monospace 8
 
-exec --no-startup-id feh --bg-fill '/home/sushi/Pictures/purple_gril_reze.jpeg'
+exec --no-startup-id feh --bg-fill '/home/sushi/Desktop/artemis_ii_moon_b_w.jpg'
 exec --no-startup-id dex --autostart --environment i3
 
 exec --no-startup-id dunst
@@ -142,16 +142,21 @@ mode "resize" {
 bindsym $mod+g mode "resize"
 
 # Color shemes for windows 
-# set $focused-ws    #8C033599
-# set $bar-color     #2601263D
+# "#27215B",
+# "#3B2C69",
+# "#8B78AD",
+# "#483675",
+# "#7E54A3"
+# set $focused-ws    #27215B
+# set $bar-color     #27215B
 #
-# set $bgcolor    #8C0335
-# set $in-bgcolor #260126
+# set $bgcolor    #483675
 # set $text       #FAFAFA
+# set $in-bgcolor #27215B99
+# set $in-text    #FAFAFA
 # set $u-bgcolor  #BF0413
 # set $indicator  #a8a3c1
-# set $in-text    #8C0335
-#                       border          background      text            indicator (a line which shows where the next window will be placed)     
+# #                       border          background      text            indicator (a line which shows where the next window will be placed)     
 # client.focused          $bgcolor        $bgcolor        $text           $indicator
 # client.unfocused        $in-bgcolor     $in-bgcolor     $in-text        $in-bgcolor
 # client.focused_inactive $in-bgcolor     $in-bgcolor     $in-text        $in-bgcolor
@@ -161,12 +166,12 @@ bar {
         position top
         status_command i3status
         # colors {
-        #         background $bgcolor
+        #         background #27215B
         #         separator #191919
         #         #                       border          background      text
-        #         focused_workspace       $focused-ws     $focused-ws      $text
-        #         inactive_workspace      $in-bgcolor     $in-bgcolor     $text
-        #         urgent_workspace        $u-bgcolor      $u-bgcolor      $text   
+        #         focused_workspace         #483675         #7E54A3      $text
+        #         # inactive_workspace      $in-bgcolor     $in-bgcolor     $text
+        #         # urgent_workspace        $u-bgcolor      $u-bgcolor      $text   
         #
         # }
 }

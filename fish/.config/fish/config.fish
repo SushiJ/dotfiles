@@ -29,6 +29,7 @@ alias conf="cd ~/.config && nvim config"
 alias dots="cd ~/.dotfiles"
 alias emacs="emacs -nw"
 alias sadf="cd ~/code/sadf"
+alias firefox="firefox-developer-edition"
 
 zoxide init fish | source
 
@@ -52,6 +53,17 @@ mise activate fish | source
 set -gx PATH "$PATH:/home/sushi/.local/share/coursier/bin"
 # <<< coursier install directory <<<
 
+if test -d $HOME/.nix-profile/share/fish/completions
+    set -gp fish_complete_path $HOME/.nix-profile/share/fish/completions
+end
+
+if test -d $HOME/.nix-profile/share/fish/vendor_completions.d
+    set -gp fish_complete_path $HOME/.nix-profile/share/fish/vendor_completions.d
+end
+
+if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+    source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+end
 
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:

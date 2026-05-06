@@ -12,16 +12,16 @@ TERM = "alacritty"
 size = 14.0
 
 [font.bold]
-family = "JetBrainsMono NF"
+family = "TX-02"
 
 [font.bold_italic]
-family = "JetBrainsMono NF"
+family = "TX-02"
 
 [font.italic]
-family = "JetBrainsMono NF"
+family = "TX-02"
 
 [font.normal]
-family = "JetBrainsMono NF"
+family = "TX-02"
 style = "Regular"
 
 [[keyboard.bindings]]
@@ -44,5 +44,3 @@ title = "Alacritty"
 [window.padding]
 x = 0
 y = 2
-
-[terminal]
