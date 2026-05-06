@@ -1,6 +1,4 @@
-local function augroup(name)
-  return vim.api.nvim_create_augroup('sushi_' .. name, { clear = true })
-end
+local function augroup(name) return vim.api.nvim_create_augroup('sushi_' .. name, { clear = true }) end
 
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
@@ -11,17 +9,13 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
 -- Highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = augroup 'highlight_yank',
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+  callback = function() vim.highlight.on_yank() end,
 })
 
 -- resize splits if window got resized
 vim.api.nvim_create_autocmd({ 'VimResized' }, {
   group = augroup 'resize_splits',
-  callback = function()
-    vim.cmd 'tabdo wincmd ='
-  end,
+  callback = function() vim.cmd 'tabdo wincmd =' end,
 })
 
 -- go to last loc when opening a buffer
@@ -30,41 +24,43 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
-    end
+    if mark[1] > 0 and mark[1] <= lcount then pcall(vim.api.nvim_win_set_cursor, 0, mark) end
   end,
 })
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
   group = augroup 'svg',
   pattern = '*.svg',
-  callback = function()
-    vim.opt_local.filetype = 'html'
-  end,
+  callback = function() vim.opt_local.filetype = 'html' end,
 })
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
-  group = augroup 'c_lang',
-  pattern = {
-    '*.c',
-    '*.h',
-    '*.cpp',
-  },
-  callback = function()
-    vim.opt.tabstop = 4
-    vim.opt.shiftwidth = 4
-    vim.opt.softtabstop = 4
-  end,
-})
+-- vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
+--   group = augroup 'c_lang',
+--   pattern = {
+--     '*.c',
+--     '*.h',
+--     '*.cpp',
+--   },
+--   callback = function()
+--     vim.opt.tabstop = 4
+--     vim.opt.shiftwidth = 4
+--     vim.opt.softtabstop = 4
+--   end,
+-- })
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
-  group = augroup 'tex',
-  pattern = '*.tex',
-  callback = function()
-    vim.opt_local.filetype = 'tex'
-  end,
-})
+-- vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
+--   group = augroup 'tex',
+--   pattern = '*.tex',
+--   callback = function()
+--     vim.opt_local.filetype = 'tex'
+--   end,
+-- })
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = { 'svelte' },
+--   callback = function()
+--     vim.treesitter.start()
+--   end,
+-- })
 
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd('FileType', {
@@ -101,44 +97,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   group = augroup 'oil',
   pattern = 'oil',
-  callback = function()
-    vim.opt_local.colorcolumn = ''
-  end,
-})
-
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'VeryLazy',
-  callback = function()
-    -- Setup some globals for debugging (lazy-loaded)
-    _G.dd = function(...)
-      Snacks.debug.inspect(...)
-    end
-    _G.bt = function()
-      Snacks.debug.backtrace()
-    end
-
-    -- Override print to use snacks for `:=` command
-    if vim.fn.has 'nvim-0.11' == 1 then
-      vim._print = function(_, ...)
-        dd(...)
-      end
-    else
-      vim.print = _G.dd
-    end
-
-    -- Create some toggle mappings
-    Snacks.toggle.option('spell', { name = 'Spelling' }):map '<leader>ts'
-    Snacks.toggle.option('wrap', { name = 'Wrap' }):map '<leader>tw'
-    Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map '<leader>tL'
-    Snacks.toggle.diagnostics():map '<leader>td'
-    Snacks.toggle.line_number():map '<leader>tl'
-    Snacks.toggle.option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map '<leader>uc'
-    Snacks.toggle.treesitter():map '<leader>tT'
-    Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map '<leader>ub'
-    Snacks.toggle.inlay_hints():map '<leader>th'
-    Snacks.toggle.indent():map '<leader>tg'
-    Snacks.toggle.dim():map '<leader>tD'
-  end,
+  callback = function() vim.opt_local.colorcolumn = '' end,
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -156,12 +115,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
       { '<leader>cd', vim.diagnostic.open_float, desc = '[C]ode [D]iagnostics' },
     }
 
-    local function client_supports_method(client, method, bufnr)
-      return client:supports_method(method, bufnr)
-    end
-
+    -- When you move your cursor, the highlights will be cleared (the second autocommand).
     local client = vim.lsp.get_client_by_id(event.data.client_id)
-    if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+    if client and client:supports_method('textDocument/documentHighlight', event.buf) then
       local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
       vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
         buffer = event.buf,
@@ -184,8 +140,60 @@ vim.api.nvim_create_autocmd('LspAttach', {
       })
     end
 
-    if client.name == 'ruff' then
-      client.server_capabilities.hoverProvider = false
+    -- This may be unwanted, since they displace some of your code
+    if client and client:supports_method('textDocument/inlayHint', event.buf) then
+      map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
     end
+    if client and client.name == 'ruff' then client.server_capabilities.hoverProvider = false end
   end,
 })
+
+vim.api.nvim_create_user_command('Format', function() require('conform').format { async = true, lsp_format = 'fallback' } end, {})
+
+vim.api.nvim_create_user_command('ConformDisable', function(args)
+  if args.bang then
+    -- FormatDisable! will disable formatting just for this buffer
+    vim.b.disable_autoformat = true
+  else
+    vim.g.disable_autoformat = true
+  end
+end, {
+  desc = 'Disable conform-autoformat-on-save',
+  bang = true,
+})
+
+vim.api.nvim_create_user_command('ConformEnable', function()
+  vim.b.disable_autoformat = false
+  vim.g.disable_autoformat = false
+end, {
+  desc = 'Re-enable conform-autoformat-on-save',
+})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'VeryLazy',
+  callback = function()
+    -- Setup some globals for debugging (lazy-loaded)
+    _G.dd = function(...) Snacks.debug.inspect(...) end
+    _G.bt = function() Snacks.debug.backtrace() end
+
+    vim.print = _G.dd
+
+    -- Create some toggle mappings
+    Snacks.toggle.option('spell', { name = 'Spelling' }):map '<leader>us'
+    Snacks.toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
+    Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map '<leader>uL'
+    Snacks.toggle.diagnostics():map '<leader>ud'
+    Snacks.toggle.line_number():map '<leader>ul'
+    Snacks.toggle.option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map '<leader>uc'
+    Snacks.toggle.treesitter():map '<leader>uT'
+    Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map '<leader>ub'
+    Snacks.toggle.inlay_hints():map '<leader>uh'
+    Snacks.toggle.indent():map '<leader>ug'
+    Snacks.toggle.dim():map '<leader>uD'
+  end,
+})
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = { 'elixir' },
+--   -- pattern = { 'janet', 'fennel', 'lfe', 'carp' },
+--   callback = function() vim.cmd 'colorscheme embark' end,
+-- })

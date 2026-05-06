@@ -1,0 +1,26 @@
+-- conform.lua
+-- neotest.lua
+-- Grug.lua
+-- fzf-lua
+-- Lazygit.lua
+-- leetcode.lua
+-- yazi.lua
+--
+-- {
+--   'code-biscuits/nvim-biscuits',
+--   dependencies = {
+--     'nvim-treesitter/nvim-treesitter',
+--   },
+--   config = function()
+--     require('nvim-biscuits').setup {
+--       toggle_keybind = '<leader>tb',
+--       cursor_line_only = true,
+--       show_on_start = true,
+--       language_config = {
+--         markdown = {
+--           disabled = true,
+--         },
+--       },
+--     }
+--   end,
+-- },
