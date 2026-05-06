@@ -3,8 +3,6 @@ local folke = {
   gh 'folke/which-key.nvim',
   gh 'folke/todo-comments.nvim', -- Highlight todo, notes, etc in comments
   gh 'folke/snacks.nvim',
-  gh 'folke/lazydev.nvim',
-  gh 'folke/noice.nvim',
   gh 'MunifTanjim/nui.nvim',
 }
 
@@ -49,30 +47,4 @@ require('snacks').setup {
   words = { enabled = true },
   terminal = { enabled = true },
   toggle = { enabled = true },
-}
-
-require('lazydev').setup {
-  library = {
-    -- '~/git/awesome/',
-    -- '~/.local/share/love-api/',
-    -- '/usr/share/awesome/lib/',
-    { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-  },
-}
-
-require('noice').setup {
-  lsp = {
-    override = {
-      ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-      ['vim.lsp.util.stylize_markdown'] = true,
-    },
-  },
-  presets = {
-    -- command_palette = true, -- position the cmdline and popupmenu together
-    long_message_to_split = true, -- long messages will be sent to a split
-    lsp_doc_border = false, -- add a border to hover docs and signature help
-  },
-  notify = {
-    enabled = false,
-  },
 }

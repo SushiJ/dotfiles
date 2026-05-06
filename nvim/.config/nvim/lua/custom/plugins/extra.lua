@@ -7,7 +7,6 @@ local extra = {
   gh 'kevinhwang91/nvim-ufo',
   gh 'kevinhwang91/promise-async',
   gh 'serhez/bento.nvim',
-  gh 'sitiom/nvim-numbertoggle',
   gh 'MeanderingProgrammer/render-markdown.nvim',
   gh 'brenoprata10/nvim-highlight-colors',
   gh 'hedyhli/outline.nvim',

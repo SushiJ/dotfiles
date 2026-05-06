@@ -1,5 +1,27 @@
 local function augroup(name) return vim.api.nvim_create_augroup('sushi_' .. name, { clear = true }) end
 
+-- ACKNOWLEDGMENT - https://github.com/sitiom/nvim-numbertoggle
+vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'CmdlineLeave', 'WinEnter' }, {
+  pattern = '*',
+  group = augroup 'numbertoggle',
+  callback = function()
+    if vim.o.nu and vim.api.nvim_get_mode().mode ~= 'i' then vim.opt.relativenumber = true end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'CmdlineEnter', 'WinLeave' }, {
+  pattern = '*',
+  group = augroup 'numbertoggle',
+  callback = function()
+    if vim.o.nu then
+      vim.opt.relativenumber = false
+      -- Conditional taken from https://github.com/rockyzhang24/dotfiles/commit/03dd14b5d43f812661b88c4660c03d714132abcf
+      -- Workaround for https://github.com/neovim/neovim/issues/32068
+      if not vim.tbl_contains({ '@', '-' }, vim.v.event.cmdtype) then vim.cmd 'redraw' end
+    end
+  end,
+})
+
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
   group = augroup 'checktime',
